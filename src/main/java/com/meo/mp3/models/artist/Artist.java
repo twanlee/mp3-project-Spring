@@ -15,10 +15,10 @@ public class Artist {
     private String fullName;
     @Column(columnDefinition = "TEXT")
     private String information;
-    @ManyToMany(mappedBy = "singers")
+    @ManyToMany(mappedBy = "s_singers")
     private List<Song> songSings;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "s_authors")
     private List<Song> authSongs;
 
 

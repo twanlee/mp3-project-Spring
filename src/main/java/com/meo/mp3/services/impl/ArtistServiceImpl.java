@@ -2,6 +2,7 @@ package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.artist.Artist;
 import com.meo.mp3.repositories.ArtistRepository;
+import com.meo.mp3.services.ArtistService;
 import com.meo.mp3.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ArtistService implements IService<Artist> {
+public class ArtistServiceImpl implements ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
     @Override
