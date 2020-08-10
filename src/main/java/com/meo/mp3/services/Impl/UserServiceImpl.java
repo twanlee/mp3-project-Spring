@@ -10,6 +10,8 @@ import com.meo.mp3.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,9 @@ public class UserServiceImpl implements IUserService {
     private IRoleService roleService;
     @Autowired
     private IProfileService profileService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User save(User user) {
         return userRepository.save(user);
@@ -43,6 +48,7 @@ public class UserServiceImpl implements IUserService {
         role.setPermission("ROLE_MEMBER");
         user.setRole(roleService.save(role));
         user.setProfile(profileService.save(profile));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
     }

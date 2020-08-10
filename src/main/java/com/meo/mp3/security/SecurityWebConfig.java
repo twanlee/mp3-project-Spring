@@ -51,4 +51,6 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
     }
+
+
 }
