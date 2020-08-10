@@ -1,7 +1,7 @@
 package com.meo.mp3.models.songs;
 
 import lombok.Data;
-
+import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.List;
 
