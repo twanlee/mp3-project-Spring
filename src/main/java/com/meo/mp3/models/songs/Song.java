@@ -18,13 +18,13 @@ public class Song {
     private String imageUrl;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
     @JoinTable(name = "author_song",
             joinColumns = {@JoinColumn(name = "song_id")},
             inverseJoinColumns = {@JoinColumn(name = "artist_id")})
     private List<Song> authors;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     @JoinTable(name = "singer_song",
             joinColumns = {@JoinColumn(name = "song_id")},
             inverseJoinColumns = {@JoinColumn(name = "artist_id" )})

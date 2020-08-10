@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
+@CrossOrigin(origins = "localhost:8080")
 @RestController
 @RequestMapping("/api/song")
 public class SongRestController {
@@ -32,7 +32,7 @@ public class SongRestController {
         return songService.save(song);
     }
 
-    @RequestMapping(value = "{id}/delete",method = RequestMethod.DELETE,produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/{id}/delete",method = RequestMethod.DELETE,produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Song delete(@PathVariable("id") Long id){
         return songService.delete(id);
