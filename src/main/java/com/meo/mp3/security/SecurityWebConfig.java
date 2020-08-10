@@ -1,7 +1,6 @@
 package com.meo.mp3.security;
 
 import com.meo.mp3.security.jwt.JwtAuthenticationFilter;
-import com.meo.mp3.services.Impl.UserServiceImpl;
 import com.meo.mp3.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,10 +23,6 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserService userService;
     @Bean
-    public IUserService userService() {
-        return new UserServiceImpl();
-    }
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
@@ -49,7 +44,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");
-        http.authorizeRequests().antMatchers("/","/login").permitAll()
+        http.authorizeRequests().antMatchers("/","/login","/api/register").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

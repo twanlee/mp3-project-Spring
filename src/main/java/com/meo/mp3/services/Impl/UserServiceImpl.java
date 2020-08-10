@@ -1,20 +1,29 @@
-package com.meo.mp3.services.Impl;
+package com.meo.mp3.services.impl;
+import com.meo.mp3.models.users.account.Profile;
+import com.meo.mp3.models.users.account.Role;
 import com.meo.mp3.models.users.account.User;
 import com.meo.mp3.models.users.account.UserPrinciple;
 import com.meo.mp3.repositories.UserRepository;
+import com.meo.mp3.services.IProfileService;
+import com.meo.mp3.services.IRoleService;
 import com.meo.mp3.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private IRoleService roleService;
+    @Autowired
+    private IProfileService profileService;
     @Override
     public User save(User user) {
-        userRepository.save(user);
+        return userRepository.save(user);
     }
     @Override
     public Iterable<User> findAll() {
@@ -27,7 +36,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User signUp(User user) {
-        return null;
+        Role role = new Role();
+        Profile profile = new Profile();
+        profile.setAvatarUrl("https://imgt.taimienphi.vn/cf/Images/huy/2020/3/19/hinh-avatar-cho-nu-dep-1.jpg");
+        role.setId(1L);
+        role.setPermission("ROLE_MEMBER");
+        user.setRole(roleService.save(role));
+        user.setProfile(profileService.save(profile));
+
+        return userRepository.save(user);
     }
 
     @Override
