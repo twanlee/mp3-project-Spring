@@ -2,7 +2,6 @@ package com.meo.mp3.controllers;
 
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.SongService;
-import com.meo.mp3.services.impl.SongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
