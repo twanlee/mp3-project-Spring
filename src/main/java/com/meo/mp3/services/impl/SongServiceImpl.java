@@ -4,6 +4,7 @@ import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.SongRepository;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +43,10 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> getSongsByNameContains(String songName) {
         return songRepository.getSongsByNameContains(songName);
+    }
+
+    @Override
+    public List<Song> getTop10SongByPostTime() {
+        return songRepository.findTop10ByOrderByPostTimeDesc();
     }
 }
