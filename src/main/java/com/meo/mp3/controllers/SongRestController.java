@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/song")
 public class SongRestController {
     @Autowired
@@ -24,7 +24,7 @@ public class SongRestController {
     }
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Song getById(@PathVariable("id") Long id){
+    public Song getById(@PathVariable("id") Long id) {
         return songServiceImpl.findById(id);
     }
 

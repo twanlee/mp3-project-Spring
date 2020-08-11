@@ -5,6 +5,7 @@ import com.meo.mp3.models.users.account.User;
 import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,10 @@ public class Song {
     private String lyric;
     private String fileUrl;
     private String imageUrl;
+    private Timestamp postTime;
+    public Song() {
+        this.postTime = new java.sql.Timestamp(System.currentTimeMillis());
+    }
     @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToMany(cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
