@@ -3,7 +3,9 @@ package com.meo.mp3.controllers;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +40,9 @@ public class SongRestController {
         return songServiceImpl.delete(id);
     }
 
+    @GetMapping("/{songName}/search")
+    public ResponseEntity<List<Song>> findSongByName(@PathVariable String songName){
+        List<Song> songList = songServiceImpl.getSongsByNameContains(songName);
+        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+    }
 }

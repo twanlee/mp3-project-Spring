@@ -19,4 +19,6 @@ public class Profile {
     private String gender;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
+
+
 }
