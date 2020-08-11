@@ -1,4 +1,4 @@
-package com.meo.mp3.services.Impl;
+package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.users.account.User;
 import com.meo.mp3.models.users.account.UserPrinciple;
@@ -28,6 +28,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override

@@ -7,4 +7,5 @@ public interface IUserService extends UserDetailsService {
     void save (User user);
     Iterable<User> findAll();
     User findByEmail(String email);
+    User findById(Long id);
 }

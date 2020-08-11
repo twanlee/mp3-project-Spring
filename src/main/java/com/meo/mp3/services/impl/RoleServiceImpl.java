@@ -1,4 +1,4 @@
-package com.meo.mp3.services.Impl;
+package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.users.account.Role;
 import com.meo.mp3.repositories.RoleRepository;

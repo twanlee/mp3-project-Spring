@@ -26,5 +26,7 @@ public class User {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Role role;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Profile profile;
 
 }
