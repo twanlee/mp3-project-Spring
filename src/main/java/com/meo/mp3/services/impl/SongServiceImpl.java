@@ -2,12 +2,12 @@ package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.SongRepository;
-import com.meo.mp3.services.IService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class SongServiceImpl implements SongService {
     @Autowired
@@ -32,5 +32,15 @@ public class SongServiceImpl implements SongService {
         Song song = findById(id);
         songRepository.delete(song);
         return song;
+    }
+
+    @Override
+    public List<Song> getSongsByUserId(Long id) {
+        return songRepository.getSongsByUserId(id);
+    }
+
+    @Override
+    public List<Song> getSongsByNameContains(String songName) {
+        return songRepository.getSongsByNameContains(songName);
     }
 }

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements IRoleService {
     @Autowired
     private RoleRepository roleRepository;
-    public RoleServiceImpl() {}
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+
     @Override
     public Role findRoleByPermission(String rolePermission) {
         return roleRepository.findRoleByPermission(rolePermission);
@@ -25,7 +22,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public void save(Role role) {
-        roleRepository.save(role);
+    public Role save(Role role) {
+        return roleRepository.save(role);
     }
 }

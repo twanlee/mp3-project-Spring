@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
-public class ProfileImpl implements IProfileService {
+public class ProfileServiceImpl implements IProfileService {
     @Autowired
     private ProfileRepository profileRepository;
+
     @Override
     public List<Profile> findAll() {
         return (List<Profile>) profileRepository.findAll();

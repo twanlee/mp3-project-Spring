@@ -34,4 +34,5 @@ public class ArtistServiceImpl implements ArtistService {
         artistRepository.delete(artist);
         return artist;
     }
+
 }
