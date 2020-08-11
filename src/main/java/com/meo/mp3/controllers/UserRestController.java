@@ -25,10 +25,10 @@ public class UserRestController {
         User user = userService.findById(id);
         return profileService.findById(user.getProfile().getId());
     }
-    @PutMapping("/{id}/edit/profile")
-    public User updateProfile(@PathVariable Long id, @RequestBody User user) {
-//        Profile currentProfile = profileService.findById(id);
-//        currentUser.setProfile(user.getProfile());
-        return null;
+    @PutMapping("/{id}/edit")
+    public User updateProfile(@RequestBody Profile profile, @PathVariable("id") Long id) {
+        User user = userService.findById(id);
+        user.setProfile(profile);
+        return userService.save(user);
     }
 }
