@@ -48,7 +48,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User signUp(UserRequestModel requestModel) {
         if (userRepository.findByEmail(requestModel.getEmail()) != null) {
-            throw new Mp3Exception(HttpStatus.BAD_REQUEST, "Trùng");
+            throw new Mp3Exception(HttpStatus.BAD_REQUEST, "Email have been existed!");
         }
 
         User user = new User(requestModel.getEmail(), requestModel.getPassword());
@@ -56,6 +56,8 @@ public class UserServiceImpl implements IUserService {
         Role role = new Role();
         Profile profile = new Profile();
         profile.setAvatarUrl("https://imgt.taimienphi.vn/cf/Images/huy/2020/3/19/hinh-avatar-cho-nu-dep-1.jpg");
+        profile.setFirstName(requestModel.getFirstName());
+        profile.setLastName(requestModel.getLastName());
         role.setId(1L);
         role.setPermission("ROLE_MEMBER");
         user.setRole(roleService.save(role));
