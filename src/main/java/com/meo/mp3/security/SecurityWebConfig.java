@@ -1,7 +1,7 @@
 package com.meo.mp3.security;
 
 import com.meo.mp3.security.jwt.JwtAuthenticationFilter;
-import com.meo.mp3.services.impl.UserServiceImpl;
+import com.meo.mp3.services.Impl.UserServiceImpl;
 import com.meo.mp3.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
