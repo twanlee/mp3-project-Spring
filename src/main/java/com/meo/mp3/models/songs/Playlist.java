@@ -14,6 +14,8 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private User user;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "song_playlist",
             joinColumns = {@JoinColumn(name = "song_id")},
