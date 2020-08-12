@@ -59,5 +59,12 @@ public class PlaylistServiceImpl implements IPlaylistService {
         return playlistRepository.save(playlist);
     }
 
+    @Override
+    public Playlist removeSongFromPlaylist(Long playlistId, Long songId) {
+        Playlist playlist = playlistRepository.findById(playlistId).get();
+        playlist.getPl_songs().remove(songService.findById(songId));
+        return playlistRepository.save(playlist);
+    }
+
 
 }

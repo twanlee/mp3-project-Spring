@@ -18,7 +18,7 @@ public class PlaylistRestController {
     @Autowired
     private IPlaylistService playlistService;
 
-    @GetMapping("/{userId}/playlist")
+    @GetMapping("/{userId}/view")
     public ResponseEntity<?> getPlaylistByUserId(@PathVariable Long userId) {
         List<Playlist> playlists = playlistService.findPlaylistsByUserId(userId);
         return new ResponseEntity<>(playlists, HttpStatus.OK);
@@ -33,6 +33,12 @@ public class PlaylistRestController {
     @PostMapping("/{playlistId}/add/{songId}/song")
     public ResponseEntity<?> addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId){
         Playlist playlist = playlistService.addSongToPlaylist(playlistId,songId);
+        return new ResponseEntity<>(playlist,HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllPlaylist(){
+        List<Playlist> playlist = playlistService.findAll();
         return new ResponseEntity<>(playlist,HttpStatus.OK);
     }
 
