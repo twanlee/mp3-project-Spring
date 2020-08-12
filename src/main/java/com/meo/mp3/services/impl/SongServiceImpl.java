@@ -1,5 +1,6 @@
 package com.meo.mp3.services.Impl;
 
+import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.SongRepository;
 import com.meo.mp3.services.SongService;
@@ -48,5 +49,10 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> getTop10SongByPostTime() {
         return songRepository.findTop10ByOrderByPostTimeDesc();
+    }
+
+    @Override
+    public List<Song> getSongFromPlaylist(Playlist playlist) {
+        return null;
     }
 }
