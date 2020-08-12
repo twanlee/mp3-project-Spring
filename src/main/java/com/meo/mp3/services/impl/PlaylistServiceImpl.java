@@ -4,9 +4,10 @@ import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.repositories.PlaylistRepository;
 import com.meo.mp3.services.IPlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PlaylistServiceImpl implements IPlaylistService {
 
     @Autowired
@@ -32,5 +33,10 @@ public class PlaylistServiceImpl implements IPlaylistService {
         Playlist playlist = findById(id);
         playlistRepository.deleteById(id);
         return playlist;
+    }
+
+    @Override
+    public List<Playlist> findPlaylistsByUserId(Long userId) {
+        return playlistRepository.findPlaylistsByUserId(userId);
     }
 }
