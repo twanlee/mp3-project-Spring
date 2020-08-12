@@ -18,7 +18,7 @@ public class UserController{
     @Autowired
     private SongService songService;
 
-    @GetMapping("/{id}/get-songs")
+    @GetMapping("/{id}/songs")
     public ResponseEntity<List<Song>> getAllSongByUser(@PathVariable Long id){
         List<Song> songList = songService.getSongsByUserId(id);
         return new ResponseEntity<List<Song>>(songList,HttpStatus.OK);
