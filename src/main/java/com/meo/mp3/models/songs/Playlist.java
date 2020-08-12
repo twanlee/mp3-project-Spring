@@ -1,5 +1,7 @@
 package com.meo.mp3.models.songs;
 
+import com.meo.mp3.models.users.account.Role;
+import com.meo.mp3.models.users.account.User;
 import lombok.Data;
 
 import javax.persistence.*;
