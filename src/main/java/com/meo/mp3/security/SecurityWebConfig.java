@@ -23,10 +23,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserService userService;
+
     @Bean
     public IUserService userService() {
         return new UserServiceImpl();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
