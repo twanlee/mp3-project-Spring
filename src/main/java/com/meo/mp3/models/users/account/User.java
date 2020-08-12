@@ -1,6 +1,5 @@
 package com.meo.mp3.models.users.account;
 
-import com.meo.mp3.models.songs.Song;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +24,5 @@ public class User {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Role role;
-
 
 }
