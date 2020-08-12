@@ -52,7 +52,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");
-        http.authorizeRequests().antMatchers("/","/login","/api/register","/api/user/**","/api/song/**").permitAll()
+        http.authorizeRequests().antMatchers("/","/api/playlist/**","/login","/api/register","/api/user/**","/api/song/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

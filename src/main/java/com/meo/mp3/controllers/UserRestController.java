@@ -25,7 +25,7 @@ public class UserRestController {
     @Autowired
     private SongService songService;
 
-    @GetMapping("/userList")
+    @GetMapping("/list")
     public Iterable<User> findAll() {
         return userService.findAll();
     }
@@ -43,7 +43,7 @@ public class UserRestController {
         return userService.save(user);
     }
 
-    @GetMapping("/{id}/get-songs")
+    @GetMapping("/{id}/songs")
     public ResponseEntity<List<Song>> getAllSongByUser(@PathVariable Long id){
         List<Song> songList = songService.getSongsByUserId(id);
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);

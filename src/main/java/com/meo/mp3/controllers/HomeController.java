@@ -35,7 +35,7 @@ public class HomeController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByEmail(user.getEmail());
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getProfile().getFirstName(), currentUser.getProfile().getLastName(), userDetails.getAuthorities()));
     }
 
 }
