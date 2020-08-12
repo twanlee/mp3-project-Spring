@@ -20,9 +20,9 @@ public class Playlist {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
+//    @JsonIgnore
     @JoinTable(name = "song_playlist",
-            joinColumns = {@JoinColumn(name = "song_id")},
-            inverseJoinColumns = {@JoinColumn(name = "playlist_id")})
+            joinColumns = {@JoinColumn(name = "playlist_id")},
+            inverseJoinColumns = {@JoinColumn(name = "song_id")})
     private List<Song> pl_songs;
 }

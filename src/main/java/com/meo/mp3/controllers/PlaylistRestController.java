@@ -19,8 +19,21 @@ public class PlaylistRestController {
     private IPlaylistService playlistService;
 
     @GetMapping("/{userId}/playlist")
-    public ResponseEntity<?> getPlaylistByUserId(@PathVariable Long userId){
+    public ResponseEntity<?> getPlaylistByUserId(@PathVariable Long userId) {
         List<Playlist> playlists = playlistService.findPlaylistsByUserId(userId);
         return new ResponseEntity<>(playlists, HttpStatus.OK);
     }
+
+    @PostMapping("/{userId}/create")
+    public ResponseEntity<?> createPlaylist(@PathVariable Long userId, @RequestBody Playlist playlist) {
+        Playlist playlist1 = playlistService.createPlaylist(userId, playlist);
+        return new ResponseEntity<>(playlist1, HttpStatus.OK);
+    }
+
+    @PostMapping("/{playlistId}/add/{songId}/song")
+    public ResponseEntity<?> addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId){
+        Playlist playlist = playlistService.addSongToPlaylist(playlistId,songId);
+        return new ResponseEntity<>(playlist,HttpStatus.OK);
+    }
+
 }
