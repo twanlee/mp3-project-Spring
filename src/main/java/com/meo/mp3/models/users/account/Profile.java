@@ -17,8 +17,5 @@ public class Profile {
     private String phoneNumber;
     private Date birthday;
     private String gender;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private User user;
-
 
 }

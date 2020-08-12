@@ -45,6 +45,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public User signUp(UserRequestModel requestModel) {
         if (userRepository.findByEmail(requestModel.getEmail()) != null) {
             throw new Mp3Exception(HttpStatus.BAD_REQUEST, "Email have been existed!");

@@ -8,5 +8,6 @@ public interface IUserService extends UserDetailsService {
     User save (User user);
     Iterable<User> findAll();
     User findByEmail(String email);
+    User findById(Long id);
     User signUp(UserRequestModel user);
 }

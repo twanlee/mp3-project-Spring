@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class ProfileServiceServiceImpl implements IProfileService {
+public class ProfileServiceImpl implements IProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
@@ -19,7 +19,7 @@ public class ProfileServiceServiceImpl implements IProfileService {
 
     @Override
     public Profile findById(Long id) {
-        return profileRepository.findById(id).get();
+        return profileRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -29,6 +29,9 @@ public class ProfileServiceServiceImpl implements IProfileService {
 
     @Override
     public Profile delete(Long id) {
-        return null;
+        Profile profile = profileRepository.findById(id).orElse(null);
+        assert profile != null;
+        profileRepository.delete(profile);
+        return profile;
     }
 }
