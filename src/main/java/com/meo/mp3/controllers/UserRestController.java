@@ -43,9 +43,4 @@ public class UserRestController {
         return userService.save(user);
     }
 
-    @GetMapping("/{id}/songs")
-    public ResponseEntity<List<Song>> getAllSongByUser(@PathVariable Long id){
-        List<Song> songList = songService.getSongsByUserId(id);
-        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
-    }
 }

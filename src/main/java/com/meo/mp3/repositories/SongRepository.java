@@ -12,9 +12,6 @@ import java.util.List;
 public interface SongRepository extends CrudRepository<Song,Long> {
     List<Song> getSongsByUserId(Long userId);
     List<Song> getSongsByNameContains(String songName);
-
-//    @Query("select s from Song s order by s.postTime")
-    List<Song> findTop10ByOrderByPostTime();
     List<Song> findTop10ByOrderByPostTimeDesc();
 
 //    @Query("select s from song s join s.s_play  p where s.id = p.id")
