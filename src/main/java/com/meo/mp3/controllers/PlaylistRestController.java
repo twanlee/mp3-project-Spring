@@ -1,7 +1,9 @@
 package com.meo.mp3.controllers;
 
 import com.meo.mp3.models.songs.Playlist;
+import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.IPlaylistService;
+import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,7 @@
 package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.songs.Playlist;
+import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.PlaylistRepository;
 import com.meo.mp3.services.IPlaylistService;
 import com.meo.mp3.services.IUserService;
@@ -65,6 +66,5 @@ public class PlaylistServiceImpl implements IPlaylistService {
         playlist.getPl_songs().remove(songService.findById(songId));
         return playlistRepository.save(playlist);
     }
-
 
 }
