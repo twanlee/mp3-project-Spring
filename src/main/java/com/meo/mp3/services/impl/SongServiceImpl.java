@@ -51,4 +51,8 @@ public class SongServiceImpl implements SongService {
         return songRepository.findTop10ByOrderByPostTimeDesc();
     }
 
+    @Override
+    public List<Song> getSongFromPlaylist(Playlist playlist) {
+        return null;
+    }
 }

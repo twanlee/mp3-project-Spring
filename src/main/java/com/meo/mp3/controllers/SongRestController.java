@@ -55,4 +55,10 @@ public class SongRestController {
         List<Song> songList = songServiceImpl.getTop10SongByPostTime();
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/songs")
+    public ResponseEntity<List<Song>> getAllSongByUser(@PathVariable Long id){
+        List<Song> songList = songServiceImpl.getSongsByUserId(id);
+        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+    }
 }
