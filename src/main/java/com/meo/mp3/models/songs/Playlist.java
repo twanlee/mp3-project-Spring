@@ -1,6 +1,7 @@
 package com.meo.mp3.models.songs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.users.account.User;
 import lombok.Data;
 import lombok.Getter;
@@ -26,4 +27,7 @@ public class Playlist {
             joinColumns = {@JoinColumn(name = "playlist_id")},
             inverseJoinColumns = {@JoinColumn(name = "song_id")})
     private List<Song> pl_songs;
+
+    @OneToOne
+    private Review review;
 }
