@@ -13,7 +13,6 @@ public interface SongRepository extends CrudRepository<Song,Long> {
     List<Song> getSongsByUserId(Long userId);
     List<Song> getSongsByNameContains(String songName);
     List<Song> findTop10ByOrderByPostTimeDesc();
+    List<Song> findTop6ByOrderByPostTimeDesc();
 
-//    @Query("select s from song s join s.s_play  p where s.id = p.id")
-//    List<Song> getAllByS_playlist(Playlist playlist);
 }
