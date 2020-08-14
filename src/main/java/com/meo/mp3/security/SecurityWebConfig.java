@@ -53,10 +53,11 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");
         http.authorizeRequests().antMatchers("/","/api/playlist/**","/login","/api/register",
-                "/api/user/**","/api/song/**", "/likeSong/**",
-                "/getReview/**").permitAll()
+                "/api/user/**","/api/song/**").permitAll()
+                .and().authorizeRequests().antMatchers("api/song/create").hasAnyRole("ADMIN","MEMBER")
                 .anyRequest().authenticated().and().csrf().disable()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().exceptionHandling().accessDeniedPage("/403");
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
