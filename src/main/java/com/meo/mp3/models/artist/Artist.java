@@ -2,7 +2,6 @@ package com.meo.mp3.models.artist;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meo.mp3.models.songs.Song;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +16,7 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
+    private String avatarUrl;
     @Column(columnDefinition = "TEXT")
     private String information;
     @ManyToMany(mappedBy = "s_singers")
