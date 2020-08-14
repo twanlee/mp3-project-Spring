@@ -2,8 +2,8 @@ package com.meo.mp3.models.songs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meo.mp3.models.artist.Artist;
+import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.users.account.User;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,4 +47,7 @@ public class Song {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
+
+    @OneToOne
+    private Review review;
 }

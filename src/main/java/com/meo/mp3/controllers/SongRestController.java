@@ -1,6 +1,8 @@
 package com.meo.mp3.controllers;
 
+import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Song;
+import com.meo.mp3.services.IReviewService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,9 @@ public class SongRestController {
     @Autowired
     private SongService songServiceImpl;
 
+    @Autowired
+    private IReviewService reviewService;
+
     @RequestMapping(value = "/list",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Song> getList(){
         return songServiceImpl.findAll();
@@ -28,13 +33,18 @@ public class SongRestController {
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Song getById(@PathVariable("id") Long id) {
-        return songServiceImpl.findById(id);
+        Song song = songServiceImpl.findById(id);
+//        Review review = song.getReview();
+//        review.setViews(review.getViews()+ 1);
+//        song.setReview(review);
+        return songServiceImpl.save(song);
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Song save(@RequestBody Song song){
         song.setPostTime(new Timestamp(System.currentTimeMillis()));
+        song.setReview(reviewService.createNew());
         return songServiceImpl.save(song);
     }
 
