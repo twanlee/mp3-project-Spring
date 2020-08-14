@@ -1,10 +1,8 @@
 package com.meo.mp3.controllers;
 
-import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.IUserService;
 import com.meo.mp3.models.users.account.User;
-import com.meo.mp3.services.IUserService;
 import com.meo.mp3.services.IReviewService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +42,6 @@ public class SongRestController {
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Song getById(@PathVariable("id") Long id) {
         Song song = songService.findById(id);
-//        Review review = song.getReview();
-//        review.setViews(review.getViews()+ 1);
-//        song.setReview(review);
         return songService.save(song);
     }
     @RequestMapping(value = "/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -87,5 +82,11 @@ public class SongRestController {
     public ResponseEntity<List<Song>> getSixSongsByPostTime(){
         List<Song> songList = songService.getTop6SongByPostTime();
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<String>> getAllSongsName(){
+        List<String> songsName = songService.getAllSongsName();
+        return new ResponseEntity<List<String>>(songsName, HttpStatus.OK);
     }
 }

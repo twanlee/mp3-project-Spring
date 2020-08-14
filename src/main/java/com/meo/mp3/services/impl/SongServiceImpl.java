@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,5 +60,15 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> getSongFromPlaylist(Playlist playlist) {
         return null;
+    }
+
+    @Override
+    public List<String> getAllSongsName() {
+        List<String> songsName = new ArrayList<>();
+        List<Song> songList = findAll();
+        for (Song song: songList){
+            songsName.add(song.getName());
+        }
+        return songsName;
     }
 }
