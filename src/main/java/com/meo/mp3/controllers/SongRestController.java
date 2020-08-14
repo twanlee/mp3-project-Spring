@@ -20,7 +20,7 @@ import java.util.List;
 public class SongRestController {
     Long user_id;
     @Autowired
-    private SongService songServiceImpl;
+    private SongService songService;
     @Autowired
     private IUserService userService;
     @PostMapping("/user_id")
@@ -29,13 +29,19 @@ public class SongRestController {
         user_id = id;
     }
     @RequestMapping(value = "/list",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Song> getList(){
-        return songServiceImpl.findAll();
+    public ResponseEntity<List<Song>> getList(){
+        List<Song> songs = songService.findAll();
+        if (songs.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Song getById(@PathVariable("id") Long id) {
-        return songServiceImpl.findById(id);
+    public ResponseEntity<Song> getById(@PathVariable("id") Long id) {
+        Song song = this.songService.findById(id);
+        if(song == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } return new ResponseEntity<>(song,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -44,24 +50,24 @@ public class SongRestController {
         song.setPostTime(new Timestamp(System.currentTimeMillis()));
         User user = userService.findById(user_id);
         song.setUser(user);
-        return songServiceImpl.save(song);
+        return songService.save(song);
     }
 
     @RequestMapping(value = "/{id}/delete",method = RequestMethod.DELETE,produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Song delete(@PathVariable("id") Long id){
-        return songServiceImpl.delete(id);
+        return songService.delete(id);
     }
 
     @GetMapping("/{songName}/search")
     public ResponseEntity<List<Song>> findSongByName(@PathVariable String songName){
-        List<Song> songList = songServiceImpl.getSongsByNameContains(songName);
+        List<Song> songList = songService.getSongsByNameContains(songName);
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
 
     @GetMapping("/topten")
     public ResponseEntity<List<Song>> getTenSongsByPostTime(){
-        List<Song> songList = songServiceImpl.getTop10SongByPostTime();
+        List<Song> songList = songService.getTop10SongByPostTime();
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
 }
