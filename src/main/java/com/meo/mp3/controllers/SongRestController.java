@@ -3,8 +3,6 @@ package com.meo.mp3.controllers;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.IUserService;
 import com.meo.mp3.models.users.account.User;
-import com.meo.mp3.services.IReviewService;
-import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.List;
+import com.meo.mp3.services.SongService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -22,12 +21,7 @@ public class SongRestController {
 
     @Autowired
     private IUserService userService;
-
-    @Autowired
     private SongService songService;
-
-    @Autowired
-    private IReviewService reviewService;
 
     @PostMapping("/user_id")
     @ResponseBody
@@ -44,11 +38,11 @@ public class SongRestController {
         Song song = songService.findById(id);
         return songService.save(song);
     }
+
     @RequestMapping(value = "/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Song save(@RequestBody Song song){
         song.setPostTime(new Timestamp(System.currentTimeMillis()));
-        song.setReview(reviewService.createNew());
         User user = userService.findById(user_id);
         song.setUser(user);
         return songService.save(song);

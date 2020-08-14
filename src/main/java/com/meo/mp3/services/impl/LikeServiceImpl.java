@@ -1,4 +1,4 @@
-package com.meo.mp3.services.Impl;
+package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Song;
