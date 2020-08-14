@@ -20,6 +20,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String category;
     @Column(columnDefinition = "TEXT")
     private String lyric;
     private String fileUrl;

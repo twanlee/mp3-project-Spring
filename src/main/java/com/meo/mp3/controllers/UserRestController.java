@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 public class UserRestController {
     @Autowired
     private IUserService userService;
@@ -26,8 +26,8 @@ public class UserRestController {
     private SongService songService;
 
     @GetMapping("/list")
-    public Iterable<User> findAll() {
-        return userService.findAll();
+    public List<User> findAll() {
+        return (List<User>) userService.findAll();
     }
 
     @GetMapping("/{id}/profile")
@@ -43,4 +43,14 @@ public class UserRestController {
         return userService.save(user);
     }
 
+    @GetMapping("/{id}/songs")
+    public ResponseEntity<List<Song>> getAllSongByUser(@PathVariable Long id){
+        List<Song> songList = songService.getSongsByUserId(id);
+        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+    }
+    @GetMapping("{id}/detail")
+    public User getUserById(@PathVariable("id") Long id){
+         return  userService.findById(id);
+
+    }
 }
