@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/artist/")
+@CrossOrigin("*")
+@RequestMapping("/api/artist")
 public class ArtistRestController {
     @Autowired
     private ArtistService artistServiceImpl;
