@@ -2,8 +2,11 @@ package com.meo.mp3.controllers;
 
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.IUserService;
+import com.meo.mp3.models.users.account.User;
+import com.meo.mp3.services.IUserService;
 import com.meo.mp3.services.SongService;
-import org.springframework.beans.factory.annotation.Autowired;;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +23,7 @@ import java.util.List;
 public class SongRestController {
     Long user_id;
     @Autowired
-    private SongService songServiceImpl;
+    private SongService songService;
     @Autowired
     private IUserService userService;
     @PostMapping("/user_id")
@@ -30,7 +33,7 @@ public class SongRestController {
     }
     @RequestMapping(value = "/list",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Song>> getList(){
-        List<Song> songs = songServiceImpl.findAll();
+        List<Song> songs = songService.findAll();
         if (songs.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(songs, HttpStatus.OK);
@@ -38,7 +41,7 @@ public class SongRestController {
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Song> getById(@PathVariable("id") Long id) {
-        Song song = this.songServiceImpl.findById(id);
+        Song song = this.songService.findById(id);
         if(song == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } return new ResponseEntity<>(song,HttpStatus.OK);
@@ -48,24 +51,26 @@ public class SongRestController {
     @ResponseBody
     public Song save(@RequestBody Song song){
         song.setPostTime(new Timestamp(System.currentTimeMillis()));
-        return songServiceImpl.save(song);
+        User user = userService.findById(user_id);
+        song.setUser(user);
+        return songService.save(song);
     }
 
     @RequestMapping(value = "/{id}/delete",method = RequestMethod.DELETE,produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Song delete(@PathVariable("id") Long id){
-        return songServiceImpl.delete(id);
+        return songService.delete(id);
     }
 
     @GetMapping("/{songName}/search")
     public ResponseEntity<List<Song>> findSongByName(@PathVariable String songName){
-        List<Song> songList = songServiceImpl.getSongsByNameContains(songName);
+        List<Song> songList = songService.getSongsByNameContains(songName);
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
 
     @GetMapping("/topten")
     public ResponseEntity<List<Song>> getTenSongsByPostTime(){
-        List<Song> songList = songServiceImpl.getTop10SongByPostTime();
+        List<Song> songList = songService.getTop10SongByPostTime();
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
 }
