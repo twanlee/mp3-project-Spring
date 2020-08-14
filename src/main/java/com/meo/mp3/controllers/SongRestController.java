@@ -21,6 +21,7 @@ public class SongRestController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
     private SongService songService;
 
     @PostMapping("/user_id")
