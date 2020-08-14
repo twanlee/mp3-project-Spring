@@ -35,7 +35,10 @@ public class UserRestController {
         User user = userService.findById(id);
         return profileService.findById(user.getProfile().getId());
     }
-
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable ("id") Long id) {
+        return userService.findById(id);
+    }
     @PutMapping("/{id}/edit")
     public User updateProfile(@RequestBody Profile profile, @PathVariable("id") Long id) {
         User user = userService.findById(id);
