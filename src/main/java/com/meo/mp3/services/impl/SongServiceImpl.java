@@ -1,8 +1,10 @@
-package com.meo.mp3.services.impl;
+package com.meo.mp3.services.Impl;
 
+import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.SongRepository;
+import com.meo.mp3.services.IReviewService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +17,10 @@ import java.util.List;
 public class SongServiceImpl implements SongService {
     @Autowired
     private SongRepository songRepository;
+
+    @Autowired
+    private IReviewService reviewService;
+
     @Override
     public List<Song> findAll() {
         return (List<Song>) songRepository.findAll();
@@ -27,6 +33,10 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song save(Song model) {
+        if  (model.getReview() == null) {
+            Review review = reviewService.createNew();
+            model.setReview(review);
+        }
         return songRepository.save(model);
     }
 

@@ -1,8 +1,8 @@
 package com.meo.mp3.security;
 
 import com.meo.mp3.security.jwt.JwtAuthenticationFilter;
-import com.meo.mp3.services.impl.UserServiceImpl;
 import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,10 +53,11 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");
         http.authorizeRequests().antMatchers("/","/api/playlist/**","/login","/api/register",
-                "/api/user/**","/api/song/**", "/likeSong/**",
+                "/api/user/**","/api/song/**", "/likeSong/**", "/likePlaylist/**",
                 "/getReview/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().exceptionHandling().accessDeniedPage("/403");
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
