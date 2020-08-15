@@ -1,6 +1,7 @@
 package com.meo.mp3.controllers;
 
 import com.meo.mp3.models.interactive.Review;
+import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.services.ILikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,11 @@ public class LikeController {
     public ResponseEntity<Review> likeSong(@PathVariable Long songId, @PathVariable Long userId) {
         Song song = likeService.likeASong(songId, userId);
         return new ResponseEntity<>(song.getReview(), HttpStatus.OK);
+    }
+
+    @GetMapping("/likePlaylist/{playlistId}/{userId}")
+    public ResponseEntity<Review> likePlaylist(@PathVariable Long playlistId, @PathVariable Long userId) {
+        Playlist playlist = likeService.likeAPlaylist(playlistId, userId);
+        return new ResponseEntity<>(playlist.getReview(), HttpStatus.OK);
     }
 }

@@ -55,6 +55,7 @@ public class PlaylistRestController {
             response.setTitle(pl.getTitle());
             response.setUserCreate(pl.getUser().getProfile().getFirstName() + " "+ pl.getUser().getProfile().getLastName());
             response.setImgUrl(pl.getImgUrl());
+            response.setReview(pl.getReview());
             playlistResponses.add(response);
         }
         return new ResponseEntity<>(playlistResponses, HttpStatus.OK);
@@ -75,6 +76,7 @@ public class PlaylistRestController {
         response.setTitle(pl.getTitle());
         response.setUserCreate(pl.getUser().getProfile().getFirstName() + " "+ pl.getUser().getProfile().getLastName());
         response.setImgUrl(pl.getImgUrl());
+        response.setReview(pl.getReview());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

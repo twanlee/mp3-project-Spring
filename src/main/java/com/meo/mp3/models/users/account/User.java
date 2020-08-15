@@ -1,5 +1,6 @@
 package com.meo.mp3.models.users.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meo.mp3.models.interactive.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class User {
     private Profile profile;
 
     @ManyToMany(mappedBy = "userSet")
+    @JsonIgnore
     private Set<Review> reviewSet;
 
     public User(String email, String password) {

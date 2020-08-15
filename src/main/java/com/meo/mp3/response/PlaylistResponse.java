@@ -1,10 +1,13 @@
 package com.meo.mp3.response;
 
+import com.meo.mp3.models.interactive.Review;
+
 public class PlaylistResponse {
     private Long id;
     private String title;
     private String userCreate;
     private String imgUrl;
+    private Review review;
 
     public Long getId() {
         return id;
@@ -36,5 +39,13 @@ public class PlaylistResponse {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
     }
 }
