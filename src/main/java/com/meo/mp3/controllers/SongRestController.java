@@ -17,22 +17,11 @@ import com.meo.mp3.services.SongService;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/song")
 public class SongRestController {
-    private Long user_id;
 
     @Autowired
     private IUserService userService;
     @Autowired
     private SongService songService;
-
-    @PostMapping("/user_id")
-    @ResponseBody
-    public void getUser_id(@RequestBody Long id){
-        user_id = id;
-    }
-    @RequestMapping(value = "/list",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Song> getList(){
-        return songService.findAll();
-    }
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Song getById(@PathVariable("id") Long id) {
@@ -40,9 +29,9 @@ public class SongRestController {
         return songService.save(song);
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/{user_id}/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Song save(@RequestBody Song song){
+    public Song save(@RequestBody Song song, @PathVariable Long user_id){
         song.setPostTime(new Timestamp(System.currentTimeMillis()));
         User user = userService.findById(user_id);
         song.setUser(user);
