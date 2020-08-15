@@ -43,10 +43,10 @@ public class Song {
             inverseJoinColumns = {@JoinColumn(name = "artist_id" )})
     private List<Artist> s_singers;
     @JsonIgnore
-    @ManyToMany(mappedBy = "pl_songs",fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Playlist> s_playlist;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     private User user;
 
     @OneToOne
