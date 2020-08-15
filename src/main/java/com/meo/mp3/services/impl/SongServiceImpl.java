@@ -33,8 +33,10 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song save(Song model) {
-        Review review = reviewService.createNew();
-        model.setReview(review);
+        if  (model.getReview() == null) {
+            Review review = reviewService.createNew();
+            model.setReview(review);
+        }
         return songRepository.save(model);
     }
 
