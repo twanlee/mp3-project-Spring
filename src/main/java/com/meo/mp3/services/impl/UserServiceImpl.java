@@ -59,10 +59,10 @@ public class UserServiceImpl implements IUserService {
 
         Role role = new Role();
         Profile profile = new Profile();
-        profile.setAvatarUrl("https://imgt.taimienphi.vn/cf/Images/huy/2020/3/19/hinh-avatar-cho-nu-dep-1.jpg");
+        profile.setAvatarUrl("https://munkschool.utoronto.ca/mga/files/2017/07/blank-profile-picture-973461_960_720.png");
         profile.setFirstName(requestModel.getFirstName());
         profile.setLastName(requestModel.getLastName());
-        role.setId(1L);
+        role.setId(2L);
         role.setPermission("ROLE_MEMBER");
         user.setRole(roleService.save(role));
         user.setProfile(profileService.save(profile));
