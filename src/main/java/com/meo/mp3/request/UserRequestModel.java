@@ -8,4 +8,5 @@ public class UserRequestModel {
     private String password;
     private String firstName;
     private String lastName;
+    private String avatarUrl;
 }
