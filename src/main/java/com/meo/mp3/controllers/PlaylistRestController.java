@@ -1,5 +1,6 @@
 package com.meo.mp3.controllers;
 
+import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.models.songs.Song;
@@ -70,7 +71,14 @@ public class PlaylistRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PlaylistResponse> getPlayListInfor(@PathVariable Long id) {
+        //Tăng view lên mỗi lần gọi
         Playlist pl = playlistService.findById(id);
+        Review review = pl.getReview();
+        review.setViews(review.getViews()+1);
+        pl.setReview(review);
+        playlistService.save(pl);
+
+        //Gán thành một đối tượng response trả về cho Front End
         PlaylistResponse response = new PlaylistResponse();
         response.setId(pl.getId());
         response.setTitle(pl.getTitle());
