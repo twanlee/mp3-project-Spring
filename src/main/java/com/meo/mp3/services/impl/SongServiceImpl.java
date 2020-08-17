@@ -115,4 +115,12 @@ public class SongServiceImpl implements SongService {
         }
         return topTen;
     }
+
+    @Override
+    public Song theBestSong() {
+        List<Song> songList = (List<Song>) songRepository.findAll();
+        Collections.sort(songList,likesComparator);
+        Song song = songList.get(0);
+        return song;
+    }
 }

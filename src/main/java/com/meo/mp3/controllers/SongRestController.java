@@ -85,4 +85,10 @@ public class SongRestController {
         List<Song> songsName = songService.getTop10SongByViews();
         return new ResponseEntity<List<Song>>(songsName, HttpStatus.OK);
     }
+
+    @GetMapping("/best/song")
+    public ResponseEntity<Song> getTheBestSong(){
+        Song song = songService.theBestSong();
+        return new ResponseEntity<Song>(song,HttpStatus.OK);
+    }
 }

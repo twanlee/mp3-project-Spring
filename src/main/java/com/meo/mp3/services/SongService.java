@@ -13,4 +13,5 @@ public interface SongService extends IService<Song> {
     List<String> getAllSongsName();
     List<Song> getTop10SongByLikes();
     List<Song> getTop10SongByViews();
+    Song theBestSong();
 }
