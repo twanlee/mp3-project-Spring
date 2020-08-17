@@ -1,7 +1,6 @@
 package com.meo.mp3.services;
 
 import com.meo.mp3.models.songs.Playlist;
-import com.meo.mp3.models.songs.Song;
 
 import java.util.List;
 
