@@ -7,4 +7,5 @@ import java.util.List;
 public interface ICommentService extends IService<Comment> {
     List<Comment> findAllBySongId(Long songId);
     List<Comment> findAllByPlaylistId(Long playlistId);
+    Comment createNewComment(Long songId, Long userId, String content);
 }

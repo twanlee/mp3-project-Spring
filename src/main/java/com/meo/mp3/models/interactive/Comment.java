@@ -1,5 +1,6 @@
 package com.meo.mp3.models.interactive;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.models.users.account.User;
@@ -29,10 +30,12 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "song_id")
+    @JsonIgnore
     private Song song;
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")
+    @JsonIgnore
     private Playlist playlist;
 
 }
