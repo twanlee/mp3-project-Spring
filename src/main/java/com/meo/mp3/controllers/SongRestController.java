@@ -40,8 +40,9 @@ public class SongRestController {
 
     @RequestMapping(value = "/{id}/delete",method = RequestMethod.DELETE,produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Song delete(@PathVariable("id") Long id){
-        return songService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+        songService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{songName}/search")
@@ -86,7 +87,7 @@ public class SongRestController {
         return new ResponseEntity<List<Song>>(songsName, HttpStatus.OK);
     }
 
-    @GetMapping("/best/song")
+    @GetMapping("/best")
     public ResponseEntity<Song> getTheBestSong(){
         Song song = songService.theBestSong();
         return new ResponseEntity<Song>(song,HttpStatus.OK);
