@@ -89,13 +89,13 @@ public class PlaylistRestController {
     }
 
     @GetMapping("/top/ten/likes")
-    public ResponseEntity<List<Playlist>> getTenPlaylistsByLikes(){
+    public ResponseEntity<List<Playlist>> getTop9PlaylistsByLikes(){
         List<Playlist> playlists = playlistService.getTop10PlaylistByLikes();
         return new ResponseEntity<List<Playlist>>(playlists, HttpStatus.OK);
     }
 
     @GetMapping("/top/ten/views")
-    public ResponseEntity<List<Playlist>> getTenPlaylistsByViews(){
+    public ResponseEntity<List<Playlist>> getTop9PlaylistsByViews(){
         List<Playlist> playlists = playlistService.getTop10PlaylistByViews();
         return new ResponseEntity<List<Playlist>>(playlists, HttpStatus.OK);
     }

@@ -75,12 +75,12 @@ public class PlaylistServiceImpl implements IPlaylistService {
     }
 
     @Override
-    public List<Playlist> getTop10PlaylistByLikes() {
+    public List<Playlist> getTop9PlaylistByLikes() {
         List<Playlist> playlists = findAll();
         List<Playlist> topTen = new ArrayList<>();
         Collections.sort(playlists,playlistLikesComparator);
         for(int i=0; i<playlists.size(); i++){
-            if(i == 10){
+            if(i == 9){
                 return topTen;
             }
             topTen.add(playlists.get(i));
@@ -89,12 +89,12 @@ public class PlaylistServiceImpl implements IPlaylistService {
     }
 
     @Override
-    public List<Playlist> getTop10PlaylistByViews() {
+    public List<Playlist> getTop9PlaylistByViews() {
         List<Playlist> playlists = findAll();
         List<Playlist> topTen = new ArrayList<>();
         Collections.sort(playlists,playlistViewsComparator);
         for(int i=0; i<playlists.size(); i++){
-            if(i == 10){
+            if(i == 9){
                 return topTen;
             }
             topTen.add(playlists.get(i));
