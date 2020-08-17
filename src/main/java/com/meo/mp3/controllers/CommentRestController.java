@@ -30,7 +30,7 @@ public class CommentRestController {
     @RequestMapping(value = "/{user_id}/{song_id}", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<CommentResponse> createComment(@RequestBody Comment comment, @PathVariable Long song_id, @PathVariable Long user_id) {
+    public ResponseEntity<CommentResponse> createComment(@RequestBody CommentResponse comment, @PathVariable Long song_id, @PathVariable Long user_id) {
         Comment cmt = commentService.createNewComment(song_id,user_id,comment.getContent());
         CommentResponse response = new CommentResponse();
         response.setId(cmt.getId());
