@@ -23,7 +23,7 @@ public class CommentServiceImpl implements ICommentService {
     private SongService songService;
     @Override
     public List<Comment> findAllBySongId(Long songId) {
-        return commentRepository.findAllBySong_Id(songId);
+        return commentRepository.findAllBySong_IdOrderByCommentTimeDesc(songId);
     }
 
     @Override

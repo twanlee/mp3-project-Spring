@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
-    List<Comment> findAllBySong_Id(Long songId);
+    List<Comment> findAllBySong_IdOrderByCommentTimeDesc(Long songId);
     List<Comment> findAllByPlaylist_Id(Long playlistId);
 }
