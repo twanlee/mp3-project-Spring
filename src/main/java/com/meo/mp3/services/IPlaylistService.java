@@ -10,4 +10,6 @@ public interface IPlaylistService extends IService<Playlist> {
     Playlist createPlaylist(Long userId, Playlist playlist);
     Playlist addSongToPlaylist(Long playlistId, Long songId);
     Playlist removeSongFromPlaylist(Long playlistId, Long songId);
+    List<Playlist> getTop10PlaylistByLikes();
+    List<Playlist> getTop10PlaylistByViews();
 }

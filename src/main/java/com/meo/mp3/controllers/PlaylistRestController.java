@@ -87,4 +87,16 @@ public class PlaylistRestController {
         response.setReview(pl.getReview());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/top/ten/likes")
+    public ResponseEntity<List<Playlist>> getTenPlaylistsByLikes(){
+        List<Playlist> playlists = playlistService.getTop10PlaylistByLikes();
+        return new ResponseEntity<List<Playlist>>(playlists, HttpStatus.OK);
+    }
+
+    @GetMapping("/top/ten/views")
+    public ResponseEntity<List<Playlist>> getTenPlaylistsByViews(){
+        List<Playlist> playlists = playlistService.getTop10PlaylistByViews();
+        return new ResponseEntity<List<Playlist>>(playlists, HttpStatus.OK);
+    }
 }

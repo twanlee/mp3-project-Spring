@@ -73,4 +73,16 @@ public class SongRestController {
         List<String> songsName = songService.getAllSongsName();
         return new ResponseEntity<List<String>>(songsName, HttpStatus.OK);
     }
+
+    @GetMapping("/top/ten/likes")
+    public ResponseEntity<List<Song>> getTenSongsByLikes(){
+        List<Song> songsName = songService.getTop10SongByLikes();
+        return new ResponseEntity<List<Song>>(songsName, HttpStatus.OK);
+    }
+
+    @GetMapping("/top/ten/views")
+    public ResponseEntity<List<Song>> getTenSongsByViews(){
+        List<Song> songsName = songService.getTop10SongByViews();
+        return new ResponseEntity<List<Song>>(songsName, HttpStatus.OK);
+    }
 }
