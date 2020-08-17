@@ -22,11 +22,14 @@ public class SongRestController {
     private IUserService userService;
     @Autowired
     private SongService songService;
+    @RequestMapping(value = "/list",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Song> getAll() {
+        return songService.findAll();
+    }
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Song getById(@PathVariable("id") Long id) {
-        Song song = songService.findById(id);
-        return songService.save(song);
+        return songService.findById(id);
     }
 
     @RequestMapping(value = "/{user_id}/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
