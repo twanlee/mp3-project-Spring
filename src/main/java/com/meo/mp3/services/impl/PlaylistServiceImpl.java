@@ -1,5 +1,7 @@
 package com.meo.mp3.services.impl;
 
+import com.meo.mp3.comparator.PlaylistLikesComparator;
+import com.meo.mp3.comparator.PlaylistViewsComparator;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.PlaylistRepository;
@@ -9,6 +11,8 @@ import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 @Service
 public class PlaylistServiceImpl implements IPlaylistService {
@@ -19,6 +23,9 @@ public class PlaylistServiceImpl implements IPlaylistService {
     private IUserService userService;
     @Autowired
     private SongService songService;
+
+    private PlaylistLikesComparator playlistLikesComparator = new PlaylistLikesComparator();
+    private PlaylistViewsComparator playlistViewsComparator = new PlaylistViewsComparator();
 
     @Override
     public List<Playlist> findAll() {
@@ -65,6 +72,34 @@ public class PlaylistServiceImpl implements IPlaylistService {
         Playlist playlist = playlistRepository.findById(playlistId).get();
         playlist.getPl_songs().remove(songService.findById(songId));
         return playlistRepository.save(playlist);
+    }
+
+    @Override
+    public List<Playlist> getTop9PlaylistByLikes() {
+        List<Playlist> playlists = findAll();
+        List<Playlist> topTen = new ArrayList<>();
+        Collections.sort(playlists,playlistLikesComparator);
+        for(int i=0; i<playlists.size(); i++){
+            if(i == 9){
+                return topTen;
+            }
+            topTen.add(playlists.get(i));
+        }
+        return topTen;
+    }
+
+    @Override
+    public List<Playlist> getTop9PlaylistByViews() {
+        List<Playlist> playlists = findAll();
+        List<Playlist> topTen = new ArrayList<>();
+        Collections.sort(playlists,playlistViewsComparator);
+        for(int i=0; i<playlists.size(); i++){
+            if(i == 9){
+                return topTen;
+            }
+            topTen.add(playlists.get(i));
+        }
+        return topTen;
     }
 
 }

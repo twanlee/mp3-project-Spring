@@ -54,7 +54,8 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.authorizeRequests().antMatchers("/","/api/playlist/**","/login","/api/register",
                 "/api/user/**","/api/song/**", "/likeSong/**", "/likePlaylist/**",
-                "/getReview/**").permitAll()
+                "/getReview/**","/api/comment/**").permitAll()
+//                .and().authorizeRequests().antMatchers("/api/**","/index").authenticated()
                 .anyRequest().authenticated().and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().exceptionHandling().accessDeniedPage("/403");

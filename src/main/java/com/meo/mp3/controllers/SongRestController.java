@@ -22,11 +22,14 @@ public class SongRestController {
     private IUserService userService;
     @Autowired
     private SongService songService;
+    @RequestMapping(value = "/list",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Song> getAll() {
+        return songService.findAll();
+    }
 
     @RequestMapping(value = "/{id}/detail",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})
     public Song getById(@PathVariable("id") Long id) {
-        Song song = songService.findById(id);
-        return songService.save(song);
+        return songService.findById(id);
     }
 
     @RequestMapping(value = "/{user_id}/save",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -40,8 +43,9 @@ public class SongRestController {
 
     @RequestMapping(value = "/{id}/delete",method = RequestMethod.DELETE,produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Song delete(@PathVariable("id") Long id){
-        return songService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+        songService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{songName}/search")
@@ -72,5 +76,23 @@ public class SongRestController {
     public ResponseEntity<List<String>> getAllSongsName(){
         List<String> songsName = songService.getAllSongsName();
         return new ResponseEntity<>(songsName, HttpStatus.OK);
+    }
+
+    @GetMapping("/top/ten/likes")
+    public ResponseEntity<List<Song>> getTenSongsByLikes(){
+        List<Song> songsName = songService.getTop10SongByLikes();
+        return new ResponseEntity<List<Song>>(songsName, HttpStatus.OK);
+    }
+
+    @GetMapping("/top/ten/views")
+    public ResponseEntity<List<Song>> getTenSongsByViews(){
+        List<Song> songsName = songService.getTop10SongByViews();
+        return new ResponseEntity<List<Song>>(songsName, HttpStatus.OK);
+    }
+
+    @GetMapping("/best")
+    public ResponseEntity<Song> getTheBestSong(){
+        Song song = songService.theBestSong();
+        return new ResponseEntity<Song>(song,HttpStatus.OK);
     }
 }
