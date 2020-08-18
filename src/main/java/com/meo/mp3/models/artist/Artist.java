@@ -22,10 +22,7 @@ public class Artist {
     @ManyToMany(mappedBy = "s_singers")
     @JsonIgnore
     private List<Song> songSings;
-
     @ManyToMany(mappedBy = "s_authors")
     @JsonIgnore
     private List<Song> authSongs;
-
-
 }
