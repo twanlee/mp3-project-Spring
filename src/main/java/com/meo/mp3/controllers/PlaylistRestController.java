@@ -85,4 +85,16 @@ public class PlaylistRestController {
         playlistService.save(playlist);
         return new ResponseEntity<Playlist>(playlist,HttpStatus.OK);
     }
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<?> deletePlaylist(@PathVariable Long id){
+        playlistService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @DeleteMapping("/{playlistId}/song/{songId}/delete")
+    public ResponseEntity<?> removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId){
+        Playlist playlist = playlistService.findById(playlistId);
+        playlist.getPl_songs().remove(songService.findById(songId));
+        playlistService.save(playlist);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

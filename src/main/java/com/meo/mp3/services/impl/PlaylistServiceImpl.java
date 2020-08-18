@@ -6,6 +6,7 @@ import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.repositories.PlaylistRepository;
 import com.meo.mp3.response.PlaylistResponse;
 import com.meo.mp3.services.PlaylistService;
+import com.meo.mp3.services.ReviewService;
 import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     private UserService userService;
     @Autowired
     private SongService songService;
+    @Autowired
+    private ReviewService reviewService;
 
     private PlaylistLikesComparator playlistLikesComparator = new PlaylistLikesComparator();
     private PlaylistViewsComparator playlistViewsComparator = new PlaylistViewsComparator();
@@ -57,6 +60,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public Playlist createPlaylist(Long userId, Playlist playlist) {
         playlist.setUser(userService.findById(userId));
+        playlist.setReview(reviewService.createNew());
         return playlistRepository.save(playlist);
     }
 

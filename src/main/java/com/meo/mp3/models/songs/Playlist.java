@@ -21,7 +21,7 @@ public class Playlist {
     private String imgUrl;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REMOVE)
 //    @JsonIgnore
     @JoinTable(name = "song_playlist",
             joinColumns = {@JoinColumn(name = "playlist_id")},
