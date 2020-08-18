@@ -114,6 +114,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         response.setUserCreate(playlist.getUser().getProfile().getFirstName() + " "+ playlist.getUser().getProfile().getLastName());
         response.setImgUrl(playlist.getImgUrl());
         response.setReview(playlist.getReview());
+        response.setUserId(playlist.getUser().getId());
 
         return response;
     }
