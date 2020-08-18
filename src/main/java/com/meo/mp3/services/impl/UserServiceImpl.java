@@ -7,9 +7,9 @@ import com.meo.mp3.models.users.account.User;
 import com.meo.mp3.models.users.account.UserPrinciple;
 import com.meo.mp3.repositories.UserRepository;
 import com.meo.mp3.request.UserRequestModel;
-import com.meo.mp3.services.IProfileService;
-import com.meo.mp3.services.IRoleService;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.ProfileService;
+import com.meo.mp3.services.RoleService;
+import com.meo.mp3.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private IRoleService roleService;
+    private RoleService roleService;
     @Autowired
-    private IProfileService profileService;
+    private ProfileService profileService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 

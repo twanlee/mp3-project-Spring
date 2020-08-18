@@ -3,10 +3,10 @@ package com.meo.mp3.services.impl;
 import com.meo.mp3.comparator.PlaylistLikesComparator;
 import com.meo.mp3.comparator.PlaylistViewsComparator;
 import com.meo.mp3.models.songs.Playlist;
-import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.PlaylistRepository;
-import com.meo.mp3.services.IPlaylistService;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.response.PlaylistResponse;
+import com.meo.mp3.services.PlaylistService;
+import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 @Service
-public class PlaylistServiceImpl implements IPlaylistService {
+public class PlaylistServiceImpl implements PlaylistService {
 
     @Autowired
     private PlaylistRepository playlistRepository;
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private SongService songService;
 
@@ -102,4 +102,24 @@ public class PlaylistServiceImpl implements IPlaylistService {
         return topTen;
     }
 
+    @Override
+    public PlaylistResponse convertToResponse(Playlist playlist) {
+        PlaylistResponse response = new PlaylistResponse();
+        response.setId(playlist.getId());
+        response.setTitle(playlist.getTitle());
+        response.setUserCreate(playlist.getUser().getProfile().getFirstName() + " "+ playlist.getUser().getProfile().getLastName());
+        response.setImgUrl(playlist.getImgUrl());
+        response.setReview(playlist.getReview());
+
+        return response;
+    }
+
+    @Override
+    public List<PlaylistResponse> convertToListResponse(List<Playlist> playlists) {
+        List<PlaylistResponse> playlistResponses = new ArrayList<>();
+        for (Playlist playlist : playlists){
+            playlistResponses.add(convertToResponse(playlist));
+        }
+        return playlistResponses;
+    }
 }

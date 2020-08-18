@@ -3,7 +3,7 @@ package com.meo.mp3.controllers;
 import com.meo.mp3.models.users.account.User;
 import com.meo.mp3.security.jwt.JwtResponse;
 import com.meo.mp3.services.JwtService;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +20,7 @@ public class HomeController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private JwtService jwtService;
 

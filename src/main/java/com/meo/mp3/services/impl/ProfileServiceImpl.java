@@ -2,13 +2,13 @@ package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.users.account.Profile;
 import com.meo.mp3.repositories.ProfileRepository;
-import com.meo.mp3.services.IProfileService;
+import com.meo.mp3.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class ProfileServiceImpl implements IProfileService {
+public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 

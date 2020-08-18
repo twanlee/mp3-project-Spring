@@ -2,11 +2,7 @@ package com.meo.mp3.controllers;
 
 import com.meo.mp3.models.interactive.Comment;
 import com.meo.mp3.models.interactive.CommentResponse;
-import com.meo.mp3.models.songs.Song;
-import com.meo.mp3.models.users.account.User;
-import com.meo.mp3.services.ICommentService;
-import com.meo.mp3.services.IUserService;
-import com.meo.mp3.services.SongService;
+import com.meo.mp3.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,11 +17,7 @@ import java.util.List;
 @RequestMapping("/api/comment/")
 public class CommentRestController {
     @Autowired
-    private ICommentService commentService;
-    @Autowired
-    private IUserService userService;
-    @Autowired
-    private SongService songService;
+    private CommentService commentService;
 
     @RequestMapping(value = "/{user_id}/{song_id}", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -48,13 +40,7 @@ public class CommentRestController {
         List<CommentResponse> response = new ArrayList<>();
         for (Comment cmt : comments) {
             CommentResponse commentResponse = new CommentResponse();
-            commentResponse.setId(cmt.getId());
-            commentResponse.setContent(cmt.getContent());
-            commentResponse.setCommentTime(cmt.getCommentTime());
-            commentResponse.setAvatarUrl(cmt.getUser().getProfile().getAvatarUrl());
-            commentResponse.setFullName(cmt.getUser().getProfile().getFirstName() + ' '
-                    + cmt.getUser().getProfile().getLastName());
-            //convert comment to comment response
+            commentResponse = this.commentService.convertToResponse(cmt);
             response.add(commentResponse);
         }
         return new ResponseEntity<>(response,HttpStatus.OK);

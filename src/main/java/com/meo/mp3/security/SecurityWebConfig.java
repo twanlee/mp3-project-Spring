@@ -1,7 +1,7 @@
 package com.meo.mp3.security;
 
 import com.meo.mp3.security.jwt.JwtAuthenticationFilter;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,10 +22,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Bean
-    public IUserService userService() {
+    public UserService userService() {
         return new UserServiceImpl();
     }
 

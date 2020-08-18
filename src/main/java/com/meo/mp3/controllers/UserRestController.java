@@ -3,8 +3,8 @@ package com.meo.mp3.controllers;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.models.users.account.Profile;
 import com.meo.mp3.models.users.account.User;
-import com.meo.mp3.services.IProfileService;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.ProfileService;
+import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +19,9 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserRestController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
-    private IProfileService profileService;
+    private ProfileService profileService;
     @Autowired
     private SongService songService;
 

@@ -5,14 +5,12 @@ import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.SongRepository;
-import com.meo.mp3.services.IReviewService;
+import com.meo.mp3.services.ReviewService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class SongServiceImpl implements SongService {
     private SongRepository songRepository;
 
     @Autowired
-    private IReviewService reviewService;
+    private ReviewService reviewService;
 
     private SongLikesComparator likesComparator = new SongLikesComparator();
     private SongViewsComparator songViewsComparator = new SongViewsComparator();

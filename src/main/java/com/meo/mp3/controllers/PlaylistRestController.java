@@ -4,14 +4,13 @@ import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.response.PlaylistResponse;
-import com.meo.mp3.services.IPlaylistService;
+import com.meo.mp3.services.PlaylistService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,7 +19,7 @@ import java.util.List;
 public class PlaylistRestController {
 
     @Autowired
-    private IPlaylistService playlistService;
+    private PlaylistService playlistService;
 
     @Autowired
     private SongService songService;
@@ -38,17 +37,8 @@ public class PlaylistRestController {
     }
     @GetMapping("/all")
     public ResponseEntity<List<PlaylistResponse>> getAllPlaylist(){
-        List<Playlist> playlist = playlistService.findAll();
-        List<PlaylistResponse> playlistResponses = new ArrayList<>();
-        for (Playlist pl : playlist) {
-            PlaylistResponse response = new PlaylistResponse();
-            response.setId(pl.getId());
-            response.setTitle(pl.getTitle());
-            response.setUserCreate(pl.getUser().getProfile().getFirstName() + " "+ pl.getUser().getProfile().getLastName());
-            response.setImgUrl(pl.getImgUrl());
-            response.setReview(pl.getReview());
-            playlistResponses.add(response);
-        }
+        List<Playlist> playlists = playlistService.findAll();
+        List<PlaylistResponse> playlistResponses = playlistService.convertToListResponse(playlists);
         return new ResponseEntity<>(playlistResponses, HttpStatus.OK);
     }
 
@@ -69,12 +59,7 @@ public class PlaylistRestController {
         playlistService.save(pl);
 //
 //        //Gán thành một đối tượng response trả về cho Front End
-        PlaylistResponse response = new PlaylistResponse();
-        response.setId(pl.getId());
-        response.setTitle(pl.getTitle());
-        response.setUserCreate(pl.getUser().getProfile().getFirstName() + " "+ pl.getUser().getProfile().getLastName());
-        response.setImgUrl(pl.getImgUrl());
-        response.setReview(pl.getReview());
+        PlaylistResponse response = this.playlistService.convertToResponse(pl);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
