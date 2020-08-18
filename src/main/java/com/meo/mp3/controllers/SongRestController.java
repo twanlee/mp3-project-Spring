@@ -1,7 +1,7 @@
 package com.meo.mp3.controllers;
 
 import com.meo.mp3.models.songs.Song;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.UserService;
 import com.meo.mp3.models.users.account.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import com.meo.mp3.services.SongService;
 public class SongRestController {
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private SongService songService;
     @RequestMapping(value = "/list",method = RequestMethod.GET , produces = {MediaType.APPLICATION_JSON_VALUE})

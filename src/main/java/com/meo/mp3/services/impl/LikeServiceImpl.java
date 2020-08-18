@@ -3,25 +3,25 @@ import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.models.users.account.User;
-import com.meo.mp3.services.ILikeService;
-import com.meo.mp3.services.IPlaylistService;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.LikeService;
+import com.meo.mp3.services.PlaylistService;
+import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 @Service
-public class LikeServiceImpl implements ILikeService {
+public class LikeServiceImpl implements LikeService {
 
     @Autowired
     SongService songService;
 
     @Autowired
-    IUserService userService;
+    UserService userService;
 
     @Autowired
-    IPlaylistService playlistService;
+    PlaylistService playlistService;
 
     @Override
     public Song likeASong(Long songId, Long userId) {

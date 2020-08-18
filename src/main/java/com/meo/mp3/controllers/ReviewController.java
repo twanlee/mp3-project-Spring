@@ -4,7 +4,7 @@ import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.interactive.ReviewResponse;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
-import com.meo.mp3.services.IPlaylistService;
+import com.meo.mp3.services.PlaylistService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class ReviewController {
     SongService songService;
 
     @Autowired
-    IPlaylistService playlistService;
+    PlaylistService playlistService;
 
     @GetMapping("/getReview/song/{id}")
     public ResponseEntity<ReviewResponse> getReviewBySongId(@PathVariable Long id) {

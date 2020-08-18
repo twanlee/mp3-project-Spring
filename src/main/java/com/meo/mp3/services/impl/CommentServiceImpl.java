@@ -1,24 +1,25 @@
 package com.meo.mp3.services.impl;
 
 import com.meo.mp3.models.interactive.Comment;
+import com.meo.mp3.models.interactive.CommentResponse;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.models.users.account.User;
 import com.meo.mp3.repositories.CommentRepository;
-import com.meo.mp3.services.ICommentService;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.CommentService;
+import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CommentServiceImpl implements ICommentService {
+public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private SongService songService;
     @Override
@@ -62,5 +63,26 @@ public class CommentServiceImpl implements ICommentService {
         comment.setSong(song);
         comment.setContent(content);
         return commentRepository.save(comment);
+    }
+    @Override
+    public CommentResponse convertToResponse(Comment comment){
+        CommentResponse commentResponse = new CommentResponse();
+        commentResponse.setId(comment.getId());
+        commentResponse.setContent(comment.getContent());
+        commentResponse.setCommentTime(comment.getCommentTime());
+        commentResponse.setAvatarUrl(comment.getUser().getProfile().getAvatarUrl());
+        commentResponse.setFullName(comment.getUser().getProfile().getFirstName() + ' '
+                + comment.getUser().getProfile().getLastName());
+        return commentResponse;
+    }
+
+    @Override
+    public List<CommentResponse> convertToListResponse(List<Comment> comments) {
+        List<CommentResponse> commentResponses = new ArrayList<>();
+        for (Comment comment : comments){
+            CommentResponse commentResponse = convertToResponse(comment);
+            commentResponses.add(commentResponse);
+        }
+        return commentResponses;
     }
 }

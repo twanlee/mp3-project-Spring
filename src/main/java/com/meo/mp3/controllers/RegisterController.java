@@ -1,22 +1,19 @@
 package com.meo.mp3.controllers;
 
 import com.meo.mp3.exception.Mp3Exception;
-import com.meo.mp3.models.users.account.User;
 import com.meo.mp3.request.UserRequestModel;
-import com.meo.mp3.services.IUserService;
+import com.meo.mp3.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.text.html.parser.Entity;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api")
 public class RegisterController extends BaseController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRequestModel user) {
