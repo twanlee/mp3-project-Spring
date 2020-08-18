@@ -66,8 +66,7 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public CommentResponse convertToResponse(Comment comment){
-        CommentResponse commentResponse = null;
-        assert false;
+        CommentResponse commentResponse = new CommentResponse();
         commentResponse.setId(comment.getId());
         commentResponse.setContent(comment.getContent());
         commentResponse.setCommentTime(comment.getCommentTime());
@@ -81,7 +80,8 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentResponse> convertToListResponse(List<Comment> comments) {
         List<CommentResponse> commentResponses = new ArrayList<>();
         for (Comment comment : comments){
-            commentResponses.add(this.convertToResponse(comment));
+            CommentResponse commentResponse = convertToResponse(comment);
+            commentResponses.add(commentResponse);
         }
         return commentResponses;
     }

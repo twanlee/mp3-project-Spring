@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -24,26 +24,15 @@ public class CommentRestController {
     @ResponseBody
     public ResponseEntity<CommentResponse> createComment(@RequestBody CommentResponse comment, @PathVariable Long song_id, @PathVariable Long user_id) {
         Comment cmt = commentService.createNewComment(song_id,user_id,comment.getContent());
-        CommentResponse response = new CommentResponse();
-        response.setId(cmt.getId());
-        response.setContent(cmt.getContent());
-        response.setCommentTime(cmt.getCommentTime());
-        response.setFullName(cmt.getUser().getProfile().getFirstName() + ' '
-                + cmt.getUser().getProfile().getLastName());
-        response.setAvatarUrl(cmt.getUser().getProfile().getAvatarUrl());
+        CommentResponse response = commentService.convertToResponse(cmt);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
     @GetMapping(value = "/{songId}/list")
     public ResponseEntity<List<CommentResponse>> getAllComment(@PathVariable Long songId){
         List<Comment> comments = commentService.findAllBySongId(songId);
-        List<CommentResponse> response = new ArrayList<>();
-        for (Comment cmt : comments) {
-            CommentResponse commentResponse = new CommentResponse();
-            commentResponse = this.commentService.convertToResponse(cmt);
-            response.add(commentResponse);
-        }
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        List<CommentResponse> responses = commentService.convertToListResponse(comments);
+        return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{comment_id}/delete")
