@@ -1,5 +1,6 @@
 package com.meo.mp3.services.impl;
-
+import com.meo.mp3.comparator.SongLikesComparator;
+import com.meo.mp3.comparator.SongViewsComparator;
 import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,6 +23,9 @@ public class SongServiceImpl implements SongService {
 
     @Autowired
     private IReviewService reviewService;
+
+    private SongLikesComparator likesComparator = new SongLikesComparator();
+    private SongViewsComparator songViewsComparator = new SongViewsComparator();
 
     @Override
     public List<Song> findAll() {
@@ -80,5 +86,41 @@ public class SongServiceImpl implements SongService {
             songsName.add(song.getName());
         }
         return songsName;
+    }
+
+    @Override
+    public List<Song> getTop10SongByLikes() {
+        List<Song> songList = (List<Song>) songRepository.findAll();
+        Collections.sort(songList,likesComparator);
+        List<Song> topTen = new ArrayList<>();
+        for(int i=0; i<songList.size(); i++){
+            if(i == 10){
+                return topTen;
+            }
+            topTen.add(songList.get(i));
+        }
+        return topTen;
+    }
+
+    @Override
+    public List<Song> getTop10SongByViews() {
+        List<Song> songList = (List<Song>) songRepository.findAll();
+        Collections.sort(songList,songViewsComparator);
+        List<Song> topTen = new ArrayList<>();
+        for(int i=0; i<songList.size(); i++){
+            if(i == 10){
+                return topTen;
+            }
+            topTen.add(songList.get(i));
+        }
+        return topTen;
+    }
+
+    @Override
+    public Song theBestSong() {
+        List<Song> songList = (List<Song>) songRepository.findAll();
+        Collections.sort(songList,likesComparator);
+        Song song = songList.get(0);
+        return song;
     }
 }

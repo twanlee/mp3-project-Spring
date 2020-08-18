@@ -11,4 +11,7 @@ public interface SongService extends IService<Song> {
     List<Song> getTop6SongByPostTime();
     List<Song> getSongFromPlaylist(Playlist playlist);
     List<String> getAllSongsName();
+    List<Song> getTop10SongByLikes();
+    List<Song> getTop10SongByViews();
+    Song theBestSong();
 }
