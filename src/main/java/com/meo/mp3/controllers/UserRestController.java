@@ -53,4 +53,11 @@ public class UserRestController {
          return  userService.findById(id);
 
     }
+    @PostMapping("/{id}/password/update")
+    public User changePassword(@PathVariable("id") Long id,@RequestBody String newPass){
+        User user = userService.findById(id);
+        String password = this.userService.encoder(newPass);
+        user.setPassword(password);
+        return userService.save(user);
+    }
 }
