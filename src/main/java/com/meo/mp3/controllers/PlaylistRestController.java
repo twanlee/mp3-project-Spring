@@ -62,14 +62,14 @@ public class PlaylistRestController {
         return new ResponseEntity<>(playlistResponses, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/detail")
+    @GetMapping("/{id}/songs")
     public ResponseEntity<List<Song>> getAllSongFromPlaylist(@PathVariable Long id){
         Playlist playlist = playlistService.findById(id);
         List<Song> songs = playlist.getPl_songs();
         return new ResponseEntity<>(songs, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/detail")
     public ResponseEntity<PlaylistResponse> getPlayListInfor(@PathVariable Long id) {
         //Tăng view lên mỗi lần gọi
         Playlist pl = playlistService.findById(id);

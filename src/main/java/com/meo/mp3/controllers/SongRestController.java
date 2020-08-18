@@ -71,6 +71,6 @@ public class SongRestController {
     @GetMapping("/name")
     public ResponseEntity<List<String>> getAllSongsName(){
         List<String> songsName = songService.getAllSongsName();
-        return new ResponseEntity<List<String>>(songsName, HttpStatus.OK);
+        return new ResponseEntity<>(songsName, HttpStatus.OK);
     }
 }

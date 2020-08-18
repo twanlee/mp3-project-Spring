@@ -14,5 +14,4 @@ public interface SongRepository extends CrudRepository<Song,Long> {
     List<Song> getSongsByNameContains(String songName);
     List<Song> findTop10ByOrderByPostTimeDesc();
     List<Song> findTop6ByOrderByPostTimeDesc();
-
 }
