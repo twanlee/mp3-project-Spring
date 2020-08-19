@@ -1,6 +1,7 @@
 package com.meo.mp3.models.interactive;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.models.users.account.User;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class Review {
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
     @JsonIgnore
     private Set<User> userSet;
+
+    @OneToOne(mappedBy = "review")
+    private Song song;
+
 
     public Long getId() {
         return id;
@@ -54,5 +59,13 @@ public class Review {
 
     public void setUserSet(Set<User> userSet) {
         this.userSet = userSet;
+    }
+
+    public Song getSong() {
+        return song;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
     }
 }

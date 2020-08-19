@@ -1,10 +1,12 @@
 package com.meo.mp3.services.impl;
 import com.meo.mp3.comparator.SongLikesComparator;
 import com.meo.mp3.comparator.SongViewsComparator;
+import com.meo.mp3.models.interactive.Comment;
 import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.SongRepository;
+import com.meo.mp3.services.CommentService;
 import com.meo.mp3.services.ReviewService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class SongServiceImpl implements SongService {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private CommentService commentService;
 
     private SongLikesComparator likesComparator = new SongLikesComparator();
     private SongViewsComparator songViewsComparator = new SongViewsComparator();
@@ -47,8 +52,19 @@ public class SongServiceImpl implements SongService {
     @Override
     public Song delete(Long id) {
         Song song = findById(id);
+        List<Comment> comments = commentService.findAllBySongId(id);
+        for (Comment cmt : comments) {
+            commentService.delete(cmt.getId());
+        }
+//        Review review = song.getReview();
+//        reviewService.delete(review);
+//        song.setReview(null);
+        List<Playlist> playlists = song.getS_playlist();
+        playlists.removeAll(playlists);
+        song.setS_playlist(playlists);
+        songRepository.save(song);
         songRepository.delete(song);
-        return song;
+        return null;
     }
 
     @Override
