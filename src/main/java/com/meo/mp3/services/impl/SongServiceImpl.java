@@ -56,12 +56,10 @@ public class SongServiceImpl implements SongService {
         for (Comment cmt : comments) {
             commentService.delete(cmt.getId());
         }
-//        Review review = song.getReview();
-//        reviewService.delete(review);
-//        song.setReview(null);
         List<Playlist> playlists = song.getS_playlist();
         playlists.removeAll(playlists);
         song.setS_playlist(playlists);
+        song.setUser(null);
         songRepository.save(song);
         songRepository.delete(song);
         return null;
