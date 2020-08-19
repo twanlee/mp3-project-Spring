@@ -33,7 +33,7 @@ public class User {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Profile profile;
 
-    @ManyToMany(mappedBy = "userSet")
+    @ManyToMany(mappedBy = "userSet", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Review> reviewSet;
 

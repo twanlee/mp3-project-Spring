@@ -46,7 +46,7 @@ public class Song {
     @ManyToMany(mappedBy = "pl_songs")
     private List<Playlist> s_playlist;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private User user;
 
     @OneToOne
