@@ -71,6 +71,9 @@ public class PlaylistServiceImpl implements PlaylistService {
     public Playlist createPlaylist(Long userId, Playlist playlist) {
         playlist.setUser(userService.findById(userId));
         playlist.setReview(reviewService.createNew());
+        if (playlist.getImgUrl() == null || playlist.getImgUrl() == ""){
+            playlist.setImgUrl("https://api.time.com/wp-content/uploads/2018/04/listening-to-music-headphones.jpg?quality=85&w=1200&h=628&crop=1");
+        }
         return playlistRepository.save(playlist);
     }
 

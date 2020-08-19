@@ -5,7 +5,6 @@ import com.meo.mp3.models.interactive.Comment;
 import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
-import com.meo.mp3.repositories.CommentRepository;
 import com.meo.mp3.repositories.SongRepository;
 import com.meo.mp3.services.CommentService;
 import com.meo.mp3.services.ReviewService;
@@ -24,8 +23,7 @@ public class SongServiceImpl implements SongService {
 
     @Autowired
     private ReviewService reviewService;
-    @Autowired
-    private CommentRepository commentRepository;
+
     @Autowired
     private CommentService commentService;
 
@@ -54,19 +52,21 @@ public class SongServiceImpl implements SongService {
     @Override
     public Song delete(Long id) {
         Song song = findById(id);
-//        List<Comment> comment = commentService.findAllBySongId(id);
-//        for (int i=0;i<comment.size();i++) {
-//            comment.remove(comment.get(i));
-//        }
-        songRepository.delete(song);
-        return song;
-    }
-//    public Song removeAllConstrain(Long id) {
-//        Song song = findById(id);
-//        song.get.removeAll(song.getPl_songs());
+        List<Comment> comments = commentService.findAllBySongId(id);
+        for (Comment cmt : comments) {
+            commentService.delete(cmt.getId());
+        }
+//        Review review = song.getReview();
+//        reviewService.delete(review);
 //        song.setReview(null);
-//        return songRepository.save(song);
-//    }
+        List<Playlist> playlists = song.getS_playlist();
+        playlists.removeAll(playlists);
+        song.setS_playlist(playlists);
+        songRepository.save(song);
+        songRepository.delete(song);
+        return null;
+    }
+
     @Override
     public List<Song> getSongsByUserId(Long id) {
         return songRepository.getSongsByUserId(id);

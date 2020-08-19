@@ -1,9 +1,7 @@
 package com.meo.mp3.models.songs;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.users.account.User;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,8 +19,7 @@ public class Playlist {
     private String imgUrl;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
-    @ManyToMany(cascade = CascadeType.REMOVE)
-//    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "song_playlist",
             joinColumns = {@JoinColumn(name = "playlist_id")},
             inverseJoinColumns = {@JoinColumn(name = "song_id")})

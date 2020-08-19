@@ -39,6 +39,13 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review createNew() {
         Review review = new Review();
+        review.setViews(0);
+        review.setLikes(0);
         return reviewRepository.save(review);
+    }
+
+    @Override
+    public void delete(Review review) {
+        reviewRepository.delete(review);
     }
 }
