@@ -1,10 +1,13 @@
 package com.meo.mp3.services.impl;
 import com.meo.mp3.comparator.SongLikesComparator;
 import com.meo.mp3.comparator.SongViewsComparator;
+import com.meo.mp3.models.interactive.Comment;
 import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
 import com.meo.mp3.models.songs.Song;
+import com.meo.mp3.repositories.CommentRepository;
 import com.meo.mp3.repositories.SongRepository;
+import com.meo.mp3.services.CommentService;
 import com.meo.mp3.services.ReviewService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,10 @@ public class SongServiceImpl implements SongService {
 
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private CommentService commentService;
 
     private SongLikesComparator likesComparator = new SongLikesComparator();
     private SongViewsComparator songViewsComparator = new SongViewsComparator();
@@ -47,10 +54,19 @@ public class SongServiceImpl implements SongService {
     @Override
     public Song delete(Long id) {
         Song song = findById(id);
+//        List<Comment> comment = commentService.findAllBySongId(id);
+//        for (int i=0;i<comment.size();i++) {
+//            comment.remove(comment.get(i));
+//        }
         songRepository.delete(song);
         return song;
     }
-
+//    public Song removeAllConstrain(Long id) {
+//        Song song = findById(id);
+//        song.get.removeAll(song.getPl_songs());
+//        song.setReview(null);
+//        return songRepository.save(song);
+//    }
     @Override
     public List<Song> getSongsByUserId(Long id) {
         return songRepository.getSongsByUserId(id);

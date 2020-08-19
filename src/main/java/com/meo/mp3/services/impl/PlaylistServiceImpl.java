@@ -2,8 +2,11 @@ package com.meo.mp3.services.impl;
 
 import com.meo.mp3.comparator.PlaylistLikesComparator;
 import com.meo.mp3.comparator.PlaylistViewsComparator;
+import com.meo.mp3.models.interactive.Review;
 import com.meo.mp3.models.songs.Playlist;
+import com.meo.mp3.models.songs.Song;
 import com.meo.mp3.repositories.PlaylistRepository;
+import com.meo.mp3.repositories.SongRepository;
 import com.meo.mp3.response.PlaylistResponse;
 import com.meo.mp3.services.PlaylistService;
 import com.meo.mp3.services.ReviewService;
@@ -11,11 +14,13 @@ import com.meo.mp3.services.UserService;
 import com.meo.mp3.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 @Service
+//@Transactional
 public class PlaylistServiceImpl implements PlaylistService {
 
     @Autowired
@@ -47,11 +52,16 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public Playlist delete(Long id) {
-        Playlist playlist = findById(id);
-        playlistRepository.deleteById(id);
+        Playlist playlist = removeAllConstrain(id);
+        playlistRepository.delete(playlist);
         return playlist;
     }
-
+    public Playlist removeAllConstrain(Long id) {
+        Playlist playlist = findById(id);
+        playlist.getPl_songs().removeAll(playlist.getPl_songs());
+        playlist.setReview(null);
+        return playlistRepository.save(playlist);
+    }
     @Override
     public List<Playlist> findPlaylistsByUserId(Long userId) {
         return playlistRepository.findPlaylistsByUserId(userId);
