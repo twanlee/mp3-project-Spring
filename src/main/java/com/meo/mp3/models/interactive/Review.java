@@ -26,6 +26,7 @@ public class Review {
     private Set<User> userSet;
 
     @OneToOne(mappedBy = "review")
+    @JsonIgnore
     private Song song;
 
 
