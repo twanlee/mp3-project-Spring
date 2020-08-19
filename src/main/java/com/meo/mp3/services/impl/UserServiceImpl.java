@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -79,5 +80,10 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException(email);
         }
         return UserPrinciple.build(user);
+    }
+
+    @Override
+    public String encoder(String password) {
+        return passwordEncoder.encode(password);
     }
 }

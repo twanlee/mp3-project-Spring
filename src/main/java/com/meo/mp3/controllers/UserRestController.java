@@ -46,11 +46,18 @@ public class UserRestController {
     @GetMapping("/{id}/songs")
     public ResponseEntity<List<Song>> getAllSongByUser(@PathVariable Long id){
         List<Song> songList = songService.getSongsByUserId(id);
-        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+        return new ResponseEntity<>(songList, HttpStatus.OK);
     }
     @GetMapping("{id}/detail")
     public User getUserById(@PathVariable("id") Long id){
          return  userService.findById(id);
 
+    }
+    @PostMapping("/{id}/password/update")
+    public User changePassword(@PathVariable("id") Long id,@RequestBody String newPass){
+        User user = userService.findById(id);
+        String password = this.userService.encoder(newPass);
+        user.setPassword(password);
+        return userService.save(user);
     }
 }
